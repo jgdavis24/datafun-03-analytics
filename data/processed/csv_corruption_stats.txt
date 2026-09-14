@@ -1,0 +1,6 @@
+Statistics for column: Perceptions of corruption
+Count: 153
+Minimum: 0.11
+Maximum: 0.94
+Mean: 0.73
+Standard Deviation: 0.18
