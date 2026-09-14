@@ -1,0 +1,6 @@
+Statistics for column: net_revenue_usd
+Count: 4210
+Minimum: -1900.85
+Maximum: 3735.54
+Mean: 18.48
+Standard Deviation: 195.01
