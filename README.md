@@ -1,215 +1,141 @@
 # datafun-03-analytics
 
-[![Workflow Guide](https://img.shields.io/badge/Pro--Guide-pro--analytics--02-green)](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
 [![Python 3.14](https://img.shields.io/badge/python-3.14%2B-blue?logo=python)](./pyproject.toml)
 [![uv managed](https://img.shields.io/badge/uv-managed-DE5FE9)](https://docs.astral.sh/uv/)
 [![ty type checked](https://img.shields.io/badge/ty-type_checked-2F80ED)](https://docs.astral.sh/ty/)
 [![Zensical docs](https://img.shields.io/badge/Zensical-docs-purple)](https://zensical.org/)
 [![MIT](https://img.shields.io/badge/license-see%20LICENSE-yellow.svg)](./LICENSE)
 
-> Professional Python project: working with data files for analytics.
+> ETVL data pipelines in Python, applied to online gaming session data.
 
-## Our Approach: Learn by Doing
+**Author:** Josiah Davis
 
-This course builds capabilities through working projects.
-**Durable skills** are grounded in real work:
-setting up a professional environment,
-reading and running code,
-understanding the logic,
-and pushing work to a shared repository.
-Each example is a professional Python project.
+**Docs:** <https://jgdavis24.github.io/datafun-03-analytics/>
 
-## Motivation
+## What this project does
 
-Data usually needs some work it can be used.
-We may need to read it from a source,
-select or change values, check our results,
-and save useful information for later.
+Four pipelines, four file formats, one structure. Each follows the same
+four stages: Extract, Transform, Verify, Load.
 
-Common tasks can be standardized into a repeatable workflow.
-Defining clear steps makes a data pipeline easy to implement.
+| Format | Input | Question |
+|---|---|---|
+| CSV | `player_sessions.csv` | How is net revenue per session distributed? |
+| JSON | `astros.json` | How many astronauts are on each spacecraft? |
+| XLSX | `Feedback.xlsx` | How often does feedback mention GitHub? |
+| TXT | `romeo_and_juliet.txt` | How long is the document? |
 
-## This Project
+The CSV pipeline is the one I made my own. The other three are the example
+project's, left in place because they show the same structure working on
+three more formats.
 
-This project illustrates **ETVL data pipelines** for extracting raw data,
-transforming it, verifying results, and loading useful output.
+## The result
 
-The example project processes four different types of raw data:
+**Average session revenue is close to useless on its own.**
 
-- **CSV** - summarizes a numeric column from world happiness data
-- **JSON** - counts astronauts by spacecraft
-- **XLSX** - counts occurrences of a word in feedback text
-- **TXT** - summarizes a plain-text document
+| Measure | Value |
+|---|---|
+| Sessions | 4,210 |
+| Minimum | -$1,900.85 |
+| Maximum | $3,735.54 |
+| Mean | $18.48 |
+| Standard deviation | $195.01 |
 
-Although the data and processing differ,
-each pipeline follows the same ETVL structure:
-**Extract / Transform / Verify / Load**
+The standard deviation is about eleven times the mean. Sessions range from
+a $1,900 loss to a $3,735 win around an average of eighteen dollars.
 
-Run the example first and read the code
-to see how the same workflow is applied to different data.
+There is no such thing as a typical session. The mean is real arithmetic
+on a wide, skewed distribution, and reporting it without the spread next
+to it implies a stability the data does not have.
 
-When you take ownership of the project,
-adapt the processing pipelines to generate new analytics.
+I wrote that prediction into `app.py` before running the pipeline, in the
+`WHY_CSV_COLUMN` block. The point of stating it first is that it could
+have been wrong.
 
-## Important Folders and Files
+Note the negative minimum. Revenue goes negative whenever a player wins.
+Nothing in the pipeline assumes revenue is positive, which is why this
+data ran through it without breaking.
 
-- **data/raw/** - raw input data files
-- **data/processed/** - output created by the pipelines
-- **docs/** - the project narrative and documentation
-- **src/datafun/** - the Python instructions
-- **zensical.toml** - update authorship & links
+## About the data
 
-## Common Workflow
+`player_sessions.csv` holds 4,210 synthetic sessions across 900 players,
+with acquisition channel, game category, device, duration, bets placed,
+and net revenue.
 
-Follow the
-[step-by-step workflow guide](https://denisecase.github.io/pro-analytics-02/workflow-b-apply-example-project/)
-carefully.
+I spent four years in casino and iGaming analytics. None of that data can
+go in a public repository, and anything committed to Git stays in the
+history even after the file is deleted. Generating realistic structure is
+how you demonstrate a pipeline in a regulated industry without creating a
+problem you cannot undo.
 
-## Challenges
-
-Challenges are expected.
-Sometimes instructions may not quite match your operating system.
-When issues occur, share screenshots, error messages,
-and details about what you tried.
-Working through issues is part of implementing professional projects.
-
-## Success
-
-After completing Phase 1. **Start & Run**, you'll have the example project,
-running on your machine.
-A new file `project.log` will appear in the root project folder
-and running the example script will print out:
+The generator is in this repository at `scripts/make_session_data.py`. It
+is seeded, so running it reproduces the same file:
 
 ```shell
-===================================
-END main() - Executed successfully!
-===================================
+uv run python scripts/make_session_data.py
 ```
 
-## Command Reference
+Publishing numbers without publishing the code that produced them asks the
+reader to take them on faith.
 
-The commands below are used in the workflow guide above.
-They are provided here for convenience.
+See the [data card](./docs/data-card.md) for field detail.
 
-Follow the guide for the **full instructions**.
-
-<details>
-<summary>Show command reference</summary>
-
-### In a machine terminal (open in your `Repos` folder)
-
-Open a machine terminal in your `Repos` folder,
-change directory (cd) into the new folder,
-and run `code .` to open only this example project in VS Code:
+## Run it
 
 ```shell
-git clone https://github.com/denisecase/datafun-03-analytics
-
+git clone https://github.com/jgdavis24/datafun-03-analytics
 cd datafun-03-analytics
 code .
 ```
 
-### In a VS Code terminal
-
-These are listed for convenience.
-For best results, follow the detailed instructions in
-[pro-analytics-02 guide](https://denisecase.github.io/pro-analytics-02/).
-
-Use VS Code menu option `Terminal` / `New Terminal` to open a **VS Code terminal**
-in the root project folder.
-Copy each command, paste into your terminal, and hit ENTER,
-to run each command one at a time.
+Then in a VS Code terminal, one command at a time:
 
 ```shell
-uv self update
-uv python pin 3.14
-uv python install
-uv lock --upgrade
 uv sync
-
-uv run pre-commit install
-uv run pre-commit autoupdate
-
-git add -A
-uv run pre-commit run --all-files
-# repeat if changes were made by pre-commit tasks
-git add -A
-uv run pre-commit run --all-files
-
-# run the module
 uv run python -m datafun.app
+```
 
-# do chores
+Output lands in `data/processed/`, one report per pipeline, and a
+`project.log` appears in the project root.
+
+## Project layout
+
+- **data/raw/** - input files
+- **data/processed/** - generated output, one report per pipeline
+- **docs/** - project narrative and results
+- **scripts/** - the synthetic data generator
+- **src/datafun/**
+  - `app.py` - declares the data choices and the reasoning, runs the pipelines
+  - `utils_etvl.py` - reusable ETVL mechanics
+  - `etvl_csv.py`, `etvl_json.py`, `etvl_xlsx.py`, `etvl_text.py` - format pipelines
+- **tests/** - pytest suite
+
+## What I changed from the example
+
+**Technical modification.** Switched the CSV pipeline from `Ladder score`
+to `Perceptions of corruption` in the world happiness data, and renamed
+the output file to match. An output file whose name no longer describes
+its contents is a small bug that becomes a real one later.
+
+**Custom project.** Replaced the happiness data with synthetic player
+session data, wrote the generator that produces it, and pointed the CSV
+pipeline at net revenue per session.
+
+**Not changed:** `utils_etvl.py`. The reusable extract, transform, verify,
+and load functions moved from a national happiness survey to gaming
+session data without a single edit. That is the lesson of the module:
+`app.py` holds the decisions, `utils_etvl.py` holds the mechanics, and the
+mechanics do not care what the data is about.
+
+## Chores
+
+```shell
 uv run ruff format .
 uv run ruff check . --fix
 uv run ty check
 uv run python -m pytest
 uv run python -m zensical build
-
-# save progress as you work
-git add -A
-git commit -m "your message here"
-# repeat if changes were made (try the UP ARROW)
-git add -A
-git commit -m "your message here"
-
-git push -u origin main
 ```
-
-</details>
-
-## Helpful Tips
-
-- Use the **UP ARROW** and **DOWN ARROW** in the terminal
-  to scroll through past commands.
-- Use `CTRL+f` to find (and replace) text within a file.
-
-## Much Can Be Ignored
-
-- You do not need to add to or modify `tests/`.
-  Tests are recommended and provided for example only.
-- Many files are silent helpers.
-  [Explore](https://denisecase.github.io/professional-python-project-explainer/)
-  as you like, but most files are never touched.
-- You do NOT need to understand everything;
-  let understanding build over time.
-
-## As Needed
-
-If VS Code does not automatically use the new `.venv` environment:
-
-1. Open the Command Palette (`Ctrl+Shift+P`).
-2. Run **Python: Select Interpreter**.
-3. Select the interpreter from this project's `.venv` folder.
-
-If VS Code still does not recognize the environment or newly installed tools:
-
-1. Open the Command Palette (`Ctrl+Shift+P`).
-2. Run **Developer: Reload Window**.
-
-## Troubleshooting >>>
-
-If you see something like this in your terminal: `>>>` or `...`
-You accidentally started Python interactive mode.
-It happens.
-Press `Ctrl c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
-
-## Documentation
-
-- [Documentation](https://denisecase.github.io/datafun-03-analytics/)
-
-## Data Card
-
-- [Project Data Card](./docs/data-card.md) - with 4 types of files
-
-## Annotations
-
-- [.annotations/annotations.md](./.annotations/annotations.md)
-
-## Citation
-
-- [CITATION.cff](./CITATION.cff)
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
+MIT. See [LICENSE](./LICENSE).
