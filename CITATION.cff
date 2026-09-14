@@ -1,0 +1,59 @@
+# ============================================================
+# CITATION.cff (How to cite this project)
+# ============================================================
+
+# REQ.UNIVERSAL: Professional open projects SHOULD include this file.
+# WHY: Support correct citation and attribution.
+# ALT: Internal or private repositories may omit citation metadata.
+# CUSTOM: Update author, repository, license, and keyword fields as needed.
+# USAGE: See https://citation-file-format.github.io/ for details.
+
+cff-version: "1.2.0"
+message: "If using this work, please cite it as described in this file."
+type: software
+
+title: "datafun-03-analytics"
+version: "0.2.0"
+date-released: "2026-09-14"
+
+authors:
+  - family-names: Davis
+    given-names: Josiah
+    affiliation: "Northwest Missouri State University, Maryville, MO, USA"
+
+repository-code: "https://github.com/jgdavis24/datafun-03-analytics"
+url: "https://github.com/jgdavis24/datafun-03-analytics"
+license: MIT
+
+abstract: >
+  Data analytics project built around ETVL pipelines: Extract, Transform,
+  Verify, and Load. The same four-stage structure is applied across CSV,
+  JSON, Excel, and plain text sources to show that a pipeline pattern can
+  move between formats and between problem domains without rewriting the
+  reusable pieces.
+
+keywords:
+  - data-analytics
+  - etvl
+  - data-pipelines
+  - analytics-foundations
+  - data-exploration
+  - data-inspection
+  - pandas
+  - logging
+  - professional-python
+  - src-layout
+  - reproducible-workflows
+  - software-quality
+  - ci-cd
+  - github-actions
+  - python
+  - git
+  - github
+  - open-source
+  - uv
+  - ruff
+  - pre-commit
+  - ty
+  - hatchling
+  - zensical
