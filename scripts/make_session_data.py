@@ -29,9 +29,9 @@ RUN (only needed to regenerate the raw data):
 """
 
 import csv
-import random
 from datetime import date, timedelta
 from pathlib import Path
+import random
 
 # A fixed seed makes this reproducible. Without it, every run would
 # produce different numbers and the results in the README would drift.
